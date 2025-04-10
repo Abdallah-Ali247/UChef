@@ -8,6 +8,11 @@ import ProfilePage from './pages/ProfilePage';
 import RestaurantListPage from './pages/RestaurantListPage';
 import MenuPage from './pages/MenuPage';
 import CartPage from './pages/CartPage';
+import OrderSummaryPage from './pages/OrderSummaryPage';
+import OrderConfirmationPage from './pages/OrderConfirmationPage';
+import OrderHistoryPage from './pages/OrderHistoryPage';
+
+
 
 // const PrivateRoute = ({ children }) => {
 //     const auth = useSelector((state) => state.auth);
@@ -79,6 +84,36 @@ function App() {
                             </PrivateRoute>
                         }
                     />
+                    <Route
+                        path="/order-summary"
+                        element={
+                            <PrivateRoute>
+                                <OrderSummaryPage />
+                            </PrivateRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/order-confirmation"
+                        element={
+                            <PrivateRoute>
+                                <OrderConfirmationPage />
+                            </PrivateRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/orders"
+                        element={
+                            <PrivateRoute>
+                                <OrderHistoryPage />
+                            </PrivateRoute>
+                        }
+                    />
+                    
+
+
+
                     <Route path="*" element={<Navigate to="/login" />} />
                 </Routes>
             </div>
