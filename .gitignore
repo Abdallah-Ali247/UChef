@@ -1,0 +1,25 @@
+# Python
+projectenv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+db.sqlite3
+
+# VSCode
+.vscode/
+
+# React
+uchef-frontend/node_modules/
+uchef-frontend/dist/
+uchef-frontend/.env
+
+# Django
+*.log
+*.pot
+*.pyc
+*.sqlite3
+
+# OS files
+.DS_Store
+Thumbs.db
