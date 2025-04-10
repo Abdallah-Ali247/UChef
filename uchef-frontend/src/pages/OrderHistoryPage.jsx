@@ -20,6 +20,19 @@ const OrderHistoryPage = () => {
         fetchOrders();
     }, []);
 
+    const handleUpdateStatus = async (orderId, newStatus) => {
+        try {
+            await apiClient.patch(`/orders/orders/${orderId}/update/`, { status: newStatus });
+            setOrders((prevOrders) =>
+                prevOrders.map((order) =>
+                    order.id === orderId ? { ...order, status: newStatus } : order
+                )
+            );
+        } catch (error) {
+            console.error('Error updating order status:', error.response?.data || error.message);
+        }
+    };
+
     if (loading) {
         return <p>Loading...</p>;
     }
@@ -33,7 +46,16 @@ const OrderHistoryPage = () => {
                 <ul>
                     {orders.map((order) => (
                         <li key={order.id}>
-                            <strong>Order #{order.id}</strong> - {new Date(order.created_at).toLocaleDateString()} (${order.total_price})
+                            <strong>Order #{order.id}</strong> - {new Date(order.created_at).toLocaleDateString()} (${order.total_price}) - Status: {order.status}
+                            <select
+                                value={order.status}
+                                onChange={(e) => handleUpdateStatus(order.id, e.target.value)}
+                            >
+                                <option value="pending">Pending</option>
+                                <option value="processing">Processing</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
                             <ul>
                                 {order.items.map((item) => (
                                     <li key={item.id}>
