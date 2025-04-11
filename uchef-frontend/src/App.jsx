@@ -11,13 +11,12 @@ import CartPage from './pages/CartPage';
 import OrderSummaryPage from './pages/OrderSummaryPage';
 import OrderConfirmationPage from './pages/OrderConfirmationPage';
 import OrderHistoryPage from './pages/OrderHistoryPage';
+import RestaurantDashboard from './pages/RestaurantDashboard';
 
 
 
-// const PrivateRoute = ({ children }) => {
-//     const auth = useSelector((state) => state.auth);
-//     return auth.token ? children : <Navigate to="/login" />;
-// };
+
+
 
 const PrivateRoute = ({ children }) => {
   const auth = useSelector((state) => state.auth);
@@ -107,6 +106,15 @@ function App() {
                         element={
                             <PrivateRoute>
                                 <OrderHistoryPage />
+                            </PrivateRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/restaurant-dashboard"
+                        element={
+                            <PrivateRoute>
+                                <RestaurantDashboard />
                             </PrivateRoute>
                         }
                     />

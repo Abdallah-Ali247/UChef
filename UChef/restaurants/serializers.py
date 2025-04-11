@@ -18,3 +18,17 @@ class MenuItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = MenuItem
         fields = ['id', 'restaurant', 'category', 'name', 'description', 'price_per_unit', 'available_quantity']
+
+
+
+from .models import Meal, Ingredient
+
+class MealSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Meal
+        fields = ['id', 'name', 'description', 'price']
+
+class IngredientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ingredient
+        fields = ['id', 'name', 'price_per_unit', 'stock_quantity']
