@@ -17,7 +17,12 @@ class UserRegistrationView(generics.CreateAPIView):
     permission_classes = [permissions.AllowAny]  # Allow unauthenticated users to register
 
     def perform_create(self, serializer):
-        user = serializer.save()
+        # Extract the role from the request data (default is 'user')
+        role = self.request.data.get('role', 'user')
+
+        # Pass the role to the serializer context
+        user = serializer.save(role=role)
+
         Token.objects.create(user=user)  # Automatically generate a token for the new user
 
 class UserProfileView(generics.RetrieveUpdateAPIView):

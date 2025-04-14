@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics, permissions
 from .models import *
 from .serializers import *
+from rest_framework.exceptions import PermissionDenied
+
 
 class RestaurantListView(generics.ListCreateAPIView):
     queryset = Restaurant.objects.all()
@@ -36,9 +38,15 @@ class MealListView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         profile = self.request.user.profile
-        # Ensure the user is a restaurant and has a linked restaurant
-        if profile.role != 'restaurant' or not hasattr(profile, 'restaurant'):
+        
+        if profile.role != 'restaurant':
+            print("Profile role:", profile.role)
             raise PermissionDenied("You do not have permission to create meals.")
+
+        # Ensure the Profile has a linked Restaurant
+        if not hasattr(profile, 'restaurant'):
+            raise PermissionDenied("Your profile is missing a linked restaurant. Please contact support.")
+
         # Automatically associate the meal with the restaurant
         serializer.save(restaurant=profile.restaurant)
 

@@ -12,7 +12,8 @@ import OrderSummaryPage from './pages/OrderSummaryPage';
 import OrderConfirmationPage from './pages/OrderConfirmationPage';
 import OrderHistoryPage from './pages/OrderHistoryPage';
 import RestaurantDashboard from './pages/RestaurantDashboard';
-
+import ManageMealsPage from './pages/ManageMealsPage';
+import ManageIngredientsPage from './pages/ManageIngredientsPage';
 
 
 
@@ -119,6 +120,23 @@ function App() {
                         }
                     />
                     
+
+                    <Route
+                        path="/manage-meals"
+                        element={
+                            <PrivateRoute>
+                                <ManageMealsPage />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/manage-ingredients"
+                        element={
+                            <PrivateRoute>
+                                <ManageIngredientsPage />
+                            </PrivateRoute>
+                        }
+                    />
 
 
 
