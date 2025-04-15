@@ -35,7 +35,7 @@ const RestaurantDashboard = () => {
             <ul>
                 {meals.map((meal) => (
                     <li key={meal.id}>
-                        {meal.name} - ${meal.price.toFixed(2)} - {meal.description}
+                        {meal.name} - ${meal.price} - {meal.description}
                     </li>
                 ))}
             </ul>
@@ -44,7 +44,7 @@ const RestaurantDashboard = () => {
             <ul>
                 {ingredients.map((ingredient) => (
                     <li key={ingredient.id}>
-                        {ingredient.name} - ${ingredient.price_per_unit.toFixed(2)} per unit - Stock: {ingredient.stock_quantity}
+                        {ingredient.name} - ${ingredient.price_per_unit} per unit - Stock: {ingredient.stock_quantity}
                     </li>
                 ))}
             </ul>
