@@ -51,3 +51,40 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+
+
+class Cart(models.Model):
+    user = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name='restaurants_cart')  # Updated related_name
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Cart of {self.user.user.username}"
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
+    meal = models.ForeignKey('Meal', on_delete=models.CASCADE, null=True, blank=True)  # For normal meals
+    ingredients = models.ManyToManyField('Ingredient', through='CartItemIngredient')  # For custom meals
+    quantity = models.PositiveIntegerField(default=1)
+    is_custom = models.BooleanField(default=False)  # True if it's a custom meal
+
+    def get_name(self):
+        if self.is_custom:
+            # Generate a name based on the ingredients
+            ingredient_names = [ingredient.name for ingredient in self.ingredients.all()]
+            return f"Custom Meal: {', '.join(ingredient_names)}"
+        return self.meal.name if self.meal else "Unnamed Meal"
+
+    def __str__(self):
+        if self.is_custom:
+            return f"{self.get_name()} ({self.quantity}x)"
+        return f"{self.meal.name} in Cart ({self.quantity}x)"    
+    
+class CartItemIngredient(models.Model):
+    cart_item = models.ForeignKey(CartItem, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey('Ingredient', on_delete=models.CASCADE)
+    quantity = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.ingredient.name} ({self.quantity})"

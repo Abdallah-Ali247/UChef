@@ -14,7 +14,8 @@ import OrderHistoryPage from './pages/OrderHistoryPage';
 import RestaurantDashboard from './pages/RestaurantDashboard';
 import ManageMealsPage from './pages/ManageMealsPage';
 import ManageIngredientsPage from './pages/ManageIngredientsPage';
-
+import OrderMealsPage from './pages/NormalMealsPage'
+import CustomizeMealPage from './pages/CustomizeMealPage'
 
 
 
@@ -137,6 +138,26 @@ function App() {
                             </PrivateRoute>
                         }
                     />
+
+                    
+                    <Route
+                        path="/OrderMealsPage"
+                        element={
+                            <PrivateRoute>
+                                <OrderMealsPage />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/CustomizeMealPage"
+                        element={
+                            <PrivateRoute>
+                                <CustomizeMealPage />
+                            </PrivateRoute>
+                        }
+                    />
+
+                    
 
 
 

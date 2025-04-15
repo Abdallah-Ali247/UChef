@@ -125,3 +125,23 @@ class IngredientDetailView(generics.RetrieveUpdateDestroyAPIView):
         if profile.role != 'restaurant' or not hasattr(profile, 'restaurant'):
             raise PermissionDenied("You do not have permission to delete this ingredient.")
         instance.delete()
+
+
+
+
+
+class CartView(generics.RetrieveAPIView):
+    serializer_class = CartSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        cart, _ = Cart.objects.get_or_create(user=self.request.user.profile)
+        return cart
+
+class AddToCartView(generics.CreateAPIView):
+    serializer_class = CartItemSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        cart, _ = Cart.objects.get_or_create(user=self.request.user.profile)
+        serializer.save(cart=cart)

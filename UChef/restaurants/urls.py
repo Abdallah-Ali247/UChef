@@ -10,5 +10,8 @@ urlpatterns = [
     path('meals/<int:pk>/', MealDetailView.as_view(), name='meal-detail'),
     path('ingredients/', IngredientListView.as_view(), name='ingredient-list'),
     path('ingredients/<int:pk>/', IngredientDetailView.as_view(), name='ingredient-detail'),
+    path('cart/', CartView.as_view(), name='cart'),
+    path('cart/add/', AddToCartView.as_view(), name='add-to-cart'),
+
 
 ]

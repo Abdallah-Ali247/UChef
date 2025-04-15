@@ -3,7 +3,7 @@ from restaurants.models import MenuItem
 from users.models import Profile
 
 class Cart(models.Model):
-    user = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name='cart')
+    user = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name='orders_cart')
 
     def __str__(self):
         return f"Cart of {self.user.user.username}"
